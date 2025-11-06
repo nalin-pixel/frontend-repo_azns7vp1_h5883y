@@ -1,28 +1,27 @@
-import { useState } from 'react'
+import { useState } from "react";
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import SkillsForm from "./components/SkillsForm";
+import JobList from "./components/JobList";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [search, setSearch] = useState({ q: "", location: "" });
+  const [profile, setProfile] = useState({ skills: "", experience: "Mid" });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Count is {count}
-          </button>
+    <div className="min-h-screen bg-gray-50 text-gray-900">
+      <Navbar />
+      <Hero onSearch={setSearch} />
+      <SkillsForm onChange={setProfile} />
+      <JobList filters={{ ...search, ...profile }} />
+      <footer className="mt-10 border-t border-gray-200">
+        <div className="max-w-6xl mx-auto px-4 py-8 text-sm text-gray-600 flex items-center justify-between">
+          <p>© {new Date().getFullYear()} TalentScout — Smarter job recommendations</p>
+          <a className="text-blue-600 hover:text-blue-700" href="https://vitejs.dev" target="_blank" rel="noreferrer">Built with Vite + React</a>
         </div>
-      </div>
+      </footer>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
